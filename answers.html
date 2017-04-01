@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>Explora</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <meta name="author" content="Swapnil Banga">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <link href="css/answers.css" rel="stylesheet">
+        <link href="dependencies/token_input/styles/token-input.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="wrapper">
+                        <article class="main">
+                            <p>Explora</p>  
+                        </article>
+                        <aside class="aside aside-1"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></aside>
+                        <aside class="aside aside-2">
+                            <input type="text" id="searchInput" placeholder="Search">
+                            <button type="submit" id="searchButton" class="btn">Search</button>
+                        </aside>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="container-fluid" id="mainQuestion">
+                <div class="row">
+                    <div class="col-xs-2 askerInfo">
+                        <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
+                        <br>
+                        <label>Date</label>
+                        <br>
+                        <label>Name</label>
+                    </div>
+                    <div class="col-xs-10 questionContent">
+                        <p>
+                            Our question. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
+                            Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+                            per inceptos himenaeos.
+                        </p>
+                        <button class="btn" data-toggle="modal" data-target="#answerModal">Post answer</button>
+                    </div>
+                </div>
+                <hr>
+            </div>
+             <div class="container-fluid" id="allAnswers">
+                <div class="row">
+                    <div class="col-xs-10 answerContent" style="float: right">
+                        <p>
+                            Answer here. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
+                            Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+                            per inceptos himenaeos.
+                        </p>
+                        <br>
+                        <span style="float: left"><a class="likeButton"><i class="fa fa-thumbs-o-up fa-lg"></i></a>&nbsp<label>34</label></span>
+                        <span style="float: right"><label>Posted by: Name</label>
+                        <br>
+                        <span style="float: right"><label>Date</label>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </main>
+
+        <!--Post answer form-->
+        <!-- Modal -->
+        <div class="modal fade" id="answerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Post your answer:</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="answerForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="answer">Your answer</label>
+                            <textarea name="answer" class="form-control" id="answer" rows="10"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <span id="successMessage" style="float: left; margin-top: 10px"></span>
+                    <button type="submit" class="btn" id="closeForm" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn" id="submitAnswer">Post</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!--End post answer form-->
+        <script>
+            var question_id = localStorage.getItem("question_id");
+            //Fetch answers
+            function fetchAnswers() {
+                var ourURL = "http://acadprojects.com/py/explora/answer?question_id=" + question_id + "&page=0";
+                $.ajax({
+                    url: ourURL,
+                    method: 'GET',
+                    data: {
+                        format: 'json'
+                    },
+                    success: function(object) {
+                        var results = object.data.length;
+                        if(results === 0) {
+                            $('#allAnswers').append(
+                                '<div class="row">' +
+                                    '<div class="col-xs-10 answerContent" style="float: right">'+
+                                        '<p>No answers yet</p>' +
+                                    '</div>' +
+                                '</div>' 
+                            );
+                        }
+                        else {
+                            for(var i = 0; i < results; i++)
+                                {
+                                $('#allAnswers').append(
+                                    '<div class="row">' +
+                                        '<div class="col-xs-10 answerContent" style="float: right" data-answerid=' + object.data[i].id + '>'+
+                                            '<p>' +
+                                                object.data[i].answer +
+                                            '</p>' +
+                                            '<br>' +
+                                            '<span style="float: left"><a class="likeButton"><i class="fa fa-thumbs-o-up fa-lg"></i></a>&nbsp<label class="likeCount">' + object.data[i].like_count  + '</label></span>' + 
+                                            '<span style="float: right"><label>Posted by: ' + object.data[i].answer_by_name + '</label>' +
+                                            '<br>' +
+                                            '<span style="float: right"><label> Date: ' + object.data[i].created_on + " "+ '</label>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<hr>'
+                                );
+                            }
+                        }
+                    }
+                })
+                .done(function() {
+                    console.log("done");
+                })
+                .fail(function() {
+                    console.log("failure");
+                });
+            }
+            //End fetching answers
+
+            //Post new answer
+            function addAnswer(data) {
+                $.ajax({
+                    url: "http://acadprojects.com/py/explora/answer",
+                    method: 'POST',
+                    contentType: 'application/json; charset=UTF-8',
+                    data: JSON.stringify(data),
+                    success: function(object) {
+                        console.log(object);
+                    }
+                })
+                .done(function() {
+                    console.log("Successfully posted your answer");
+                    $('#answerForm').each(function() {
+                         this.reset();
+                     });
+                     $('#successMessage').append("<label>Succesfully posted</label");
+                     location.reload();
+                })
+                .fail(function() {
+                    console.log("Nope");
+                    $('#successMessage').append("<label>Could not post</label");
+                });
+            }
+
+            //Update likes
+            function updateLikes(answerID) {
+                var answerIDval = $(answerID).attr("data-answerid");
+                $.ajax ({
+                    url: 'http://acadprojects.com/py/explora/answer',
+                    method: 'PUT', 
+                    data: {
+                        format: JSON,
+                        "answer_id": answerIDval
+                    },
+                    success: function(object) {
+                        if(object.result === true)
+                        {
+                            var likeCount = parseInt((answerID).find('.likeCount').html());
+                            likeCount += 1;
+                            $(answerID).find('.likeCount').html(likeCount);
+                        }
+                    }
+                })
+                .done(function() {
+                    console.log("Updated likes");
+                })
+                .fail(function() {
+                    console.log("Could not update likes");
+                });
+                };
+                //End update likes
+
+                $(document).ready(function() {
+                    //Fetch all answers when page loads
+                    fetchAnswers();
+
+                    //Update likes
+                    $('body').on('click', '.likeButton', function() {
+                        var answerID = $(this).parent().parent();
+                        updateLikes(answerID);
+                    });
+
+                    //Submit an answer
+                    $('#submitAnswer').on('click', function() {
+                        var proceed = true;
+                        $('#answerForm input, #answerForm textarea').each(function() {
+                            $(this).css('border-color',''); 
+                            if(! $.trim($(this).val())) { 
+                                $(this).css('border-color','red'); 
+                                proceed = false;
+                            }
+                        });
+                        var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
+                        if(! email_reg.test($.trim($('#email').val()))) {
+                            $('#email').css('border-color','red');
+                            $('#successMessage').html("<label>Invalid email</label");
+                            proceed = false;           
+                        } 
+                        else
+                        {
+                            $('#successMessage').html("<label></label");
+                        }
+
+                        if(proceed) {
+                           var data = {
+                               answer: $('#answer').val(),
+                               answer_by_email: $('#email').val(),
+                               answer_by_name: $('#name').val(),
+                               quora_question_id: question_id
+                           }
+                           addAnswer(data);
+                        }
+                        event.preventDefault();
+                    });
+                });
+        </script>
+    </body>
+</html>

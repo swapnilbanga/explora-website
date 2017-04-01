@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="eng">
+    <head>
+        <title>Explora</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <meta name="author" content="Swapnil Banga">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+        <link href="dependencies/token_input/styles/token-input.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <header>
+            <nav class="navbar-default navbar-fixed-top">
+                <div class="container-fluid">
+                    <div class="wrapper">
+                        <article class="main">
+                            <p>Explora</p>  
+                        </article>
+                        <aside class="aside aside-1"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></aside>
+                        <aside class="aside aside-2">
+                                <input type="text" id="searchInput" placeholder="Search">
+                                <button type="submit" id="searchButton" class="btn">Search</button>
+                        </aside>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <div class="container-fluid">
+                <div class="row" id="users">
+                    <div id="recentTab" class="col-xs-4 questionToggle">
+                        <a href="#recent" data-toggle="tab"><h4>Recent</h4></a>
+                    </div>
+                    <div id="trendingTab" class="col-xs-4 questionToggle activeTab">
+                        <a href="#trending" data-toggle="tab"><h4>Trending</h4></a>
+                    </div>
+                    <div id="popularTab" class="col-xs-4 questionToggle">
+                        <a href="#popular" data-toggle="tab"><h4>Popular</h4></a>
+                    </div>
+                </div>
+
+                <div class="row" style="width: 90%; margin-left: 5%">
+                    <button id"ask" type="button" class="btn" data-toggle="modal" data-target="#questionModal">Ask Question</button>
+                    <button class="dropdown btn" id="semester">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Semester <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">First</a></li>
+                            <li><a href="#">Second</a></li>
+                            <li><a href="#">Third</a></li>
+                            <li><a href="#">Fourth</a></li>
+                            <li><a href="#">Fifth</a></li>
+                            <li><a href="#">Sixth</a></li>
+                            <li><a href="#">Seventh</a></li>
+                            <li><a href="#">Eighth</a></li>
+                        </ul>
+                    </button>
+                </div>
+
+                <hr>
+                
+                <div class="tab-content">
+                    <div class="tab-pane fade" id="recent">
+                        <div class="container-fluid" id="recentQuestions">
+                            <div class="row">
+                                <div class="col-xs-2 askerInfo">
+                                    <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
+                                    <br>
+                                    <label>Date</label>
+                                    <br>
+                                    <label>Name</label>
+                                </div>
+                                <div class="col-xs-10 questionContent">
+                                    <p>
+                                        Recent content. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
+                                        Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+                                        per inceptos himenaeos.
+                                    </p>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                <div class="tab-pane fade in active" id="trending">
+                    <div class="container-fluid" id="trendingQuestions">
+                        <div class="row">
+                            <div class="col-xs-2 askerInfo">
+                                <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
+                                <br>
+                                <label>Date</label>
+                                <br>
+                                <label>Name</label>
+                            </div>
+                            <div class="col-xs-10 questionContent">
+                                <p>
+                                    Trending content. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
+                                    Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+                                    per inceptos himenaeos.
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="popular">
+                    <div class="container-fluid" id="popularQuestions">
+                        <div class="row">
+                            <div class="col-xs-2 askerInfo">
+                                <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
+                                <br>
+                                <label>Date</label>
+                                <br>
+                                <label>Name</label>
+                            </div>
+                            <div class="col-xs-10 questionContent">
+                                <p>
+                                    Popular content. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
+                                    Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+                                    per inceptos himenaeos.
+                                </p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+        <!--Question Form-->
+        <!-- Modal -->
+        <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Ask a question:</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="questionForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Your Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input name="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select name="subject" class="form-control" id="subject">
+                            <option value="4">C Programming</option>
+                            <option value="5">Data Structures</option>
+                            <option value="6">Software Testing</option>
+                            <option value="7">Mathematics</option>
+                            <option value="8">Algorithms</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="semesterForm">Semester</label>
+                            <select id="semesterForm" name="semester" class="form-control" >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tagInput">Tags</label>
+                            <input name="tags" type="text" class="form-control" id="tagInput" placeholder="Start typing to search">
+                        </div>
+                        <div class="form-group">
+                            <label for="question">Your question</label>
+                            <textarea name="question" class="form-control" id="question" rows="4"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <span id="successMessage" style="float: left; margin-top: 10px"></span>
+                    <button type="submit" class="btn" id="closeForm" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn" id="submitQuestion">Post</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <!--End Question Form-->
+
+        <script type="text/javascript" src="dependencies/token_input/src/jquery.tokeninput.js"></script>
+        <script type="text/javascript">
+            //Load questions
+            function fetchQuestions(url, containerDiv) {
+                $.ajax({
+                    url: url, 
+                    method: 'GET',
+                    data: {
+                        format: 'json'
+                    },
+                    success: function(object) {
+                        var results = object.data.length;
+                        for(var i = 0; i < results; i++)
+                            {
+                            $(containerDiv).append(
+                                '<div class="row">' +
+                                    '<div class="col-xs-2 askerInfo">' +
+                                        '<img src="' + object.data[i].image_url + '" alt="user image" style="height: 100px; width: 100px">' +
+                                        '<br>' +
+                                        '<label>' + object.data[i].created_on + '</label>' +
+                                        '<br>' +
+                                        '<label>' + object.data[i].posted_by_name + '</label>' +
+                                    '</div>' +
+                                    '<div class="col-xs-10 questionContent">'+
+                                        '<p>' +
+                                            object.data[i].question +
+                                        '</p>' +
+                                        '<a href="answers.html"><button class="btn viewAnswers"' + 'data-question_id=' + object.data[i].id + '>Answers</button></a>' +
+                                    '</div>' +
+                                '</div>' + 
+                                '<hr>'
+                            );
+                        }
+                    }
+                })
+                .done(function() {
+                    console.log("Done loading questions");
+                })
+                .fail(function() {
+                    console.log("Failure, couldn't load questions");
+                });
+            }
+            //End loading questions
+
+            //Post a new question
+            function addQuestion(data) {
+            $.ajax({
+                    url: "http://acadprojects.com/py/explora/question",
+                    method: 'POST',
+                    contentType: 'application/json; charset=UTF-8',
+                    data: JSON.stringify(data),
+                    success: function(object) {
+                        console.log(object);
+                    }
+                })
+                .done(function() {
+                    console.log("Successfully posted your question");
+                    $('#questionForm').each(function() {
+                         this.reset();
+                     });
+                     $('#successMessage').append("<label>Succesfully posted</label");
+                })
+                .fail(function() {
+                    console.log("Nope");
+                    $('#successMessage').append("<label>Could not post</label");
+                });
+            }
+
+            function getSubjectId() {
+                $.ajax({
+                    url: "http://acadprojects.com/py/explora/subject",
+                    method: 'GET',
+                    success: function(object)
+                    {   for(i in object.data)
+                        $('#subject').prepend (
+                            "<option value=" + object.data[i].id + ">" + object.data[i].name + "</option>"
+                        );
+                    }
+                })
+                .done(function() {
+                    console.log("Succesfully loaded subjects");
+                })
+                .fail(function() {
+                    console.log("Failed to load subjects");
+                })
+            }
+
+            //open search page
+            function searchBySubject(query) {
+                var subject_id = 0;
+                $('#subject').children().each(function() {
+                    if($(this).html() === query) {
+                        subject_id = $(this).val();
+                        localStorage.setItem("subject_id", subject_id);
+                        localStorage.setItem("subject_name", query);
+                        window.location.href = "search.html";
+                    }   
+                });
+                console.log("No matches");
+            }
+
+            $(document).ready(function () {
+                //Load trending questions when page loads.
+                var url = "http://acadprojects.com/py/explora/question?page=0&type=trending";
+                var containerDiv = "#trendingQuestions";
+                fetchQuestions(url, containerDiv);
+
+                //Get subjects
+                getSubjectId();
+
+                //Call recent questions
+                $('#recentTab').on('click', function() {
+                    var url = "http://acadprojects.com/py/explora/question?page=0&type=recent";
+                    var containerDiv = "#recentQuestions";
+                    fetchQuestions(url, containerDiv);
+                });
+
+                //Call popular questions
+                $('#popularTab').on('click', function() {
+                    var url = "http://acadprojects.com/py/explora/question?page=0&type=popular";
+                    var containerDiv = "#popularQuestions";
+                    fetchQuestions(url, containerDiv);
+                });
+
+                //Call trending questions
+                $('#trendingTab').on('click', function() {
+                    var url = "http://acadprojects.com/py/explora/question?page=0&type=trending";
+                    var containerDiv = "#trendingQuestions";
+                    fetchQuestions(url, containerDiv);
+                });
+
+                //Save question id for access
+                $('body').on('click', ".viewAnswers", function() {
+                    localStorage.setItem("question_id", $(this).attr("data-question_id"));
+                });
+
+                //Submit a question
+                $('#submitQuestion').on('click', function() {
+                    var proceed = true;
+                    $('#questionForm input, #questionForm textarea').each(function() {
+                          $(this).css('border-color',''); 
+                          if(! $.trim($(this).val())) { 
+                              $(this).css('border-color','red'); 
+                              proceed = false;
+                        }
+                    });
+                    var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
+                    if(! email_reg.test($.trim($('#email').val()))) {
+                        $('#email').css('border-color','red');
+                        $('#successMessage').html("<label>Invalid email</label");
+                        proceed = false;           
+                    } 
+                    else
+                    {
+                        $('#successMessage').html("<label></label");
+                    }
+                    
+                    if(proceed) {
+                       var data = {
+                           posted_by_email: $('#email').val(),
+                           posted_by_name: $('#name').val(),
+                           question: $('#question').val(),
+                           subject_id: 1,
+                           semester: $('#semesterForm').val(),
+                           tags: $('#tagInput').val().split(" ")
+                       }
+                       addQuestion(data);
+                    }
+                    event.preventDefault();
+                });
+
+                //Get search text
+                $('#searchButton').on('click', function() {
+                    var query = $('#searchInput').val();
+                    if(query)
+                        searchBySubject(query);
+                    else
+                        console.log("Empty value");
+                });
+            });
+
+            //Change user tab colors
+            $('#users').children().on('click', function() {
+                $(this).addClass("activeTab");
+                $(this).siblings().removeClass("activeTab");
+            });
+        </script>
+    </body>
+</html>

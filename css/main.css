@@ -1,0 +1,156 @@
+
+body {
+    margin-top: 70px;
+}
+
+.navbar-default {
+    background-color: steelblue;
+}
+
+.btn {
+    background-color: steelblue;
+    color: white;
+    border: 1px solid white;
+}
+
+.btn a {
+    color: white;
+}
+
+.wrapper {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;  
+  
+  -webkit-flex-flow: row wrap;
+  flex-flow: row wrap;
+  
+  font-weight: bold;
+  text-align: center;
+}
+
+.wrapper > * {
+  padding: 10px;
+  flex: 1 100%;
+}
+
+.main {
+  text-align: center;
+  font-size: 32px;
+}
+
+.aside-1 {
+  text-align: left;
+}
+
+.aside-2 {
+  text-align: right;
+}
+
+.question_id {
+    display: none;
+}
+
+.viewAnswers {
+    margin-top: 15px;
+}
+
+.activeTab {
+    background-color: steelblue
+}
+
+.activeTab a {
+    color: white;
+    text-decoration: none;
+}
+
+#searchInput {
+    width: 50%;
+    font-size: 14px;
+    height: 34px;
+    line-height: 1.42857143;
+    color: #555;
+    padding: 6px 12px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+#users {
+    text-align: center;
+    margin-bottom: 15px;
+
+}
+
+.questionToggle {
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.tab-content {
+    margin-top: 20px;
+}
+
+.askerInfo {
+    text-align: center;
+}
+
+#ask {
+    float: left;
+}
+
+#semester {
+    float: right;
+}
+
+#submitQuestion {
+    float: right;
+    margin-right: 15px;
+}
+
+#closeForm {
+    float: right;
+}
+
+@media all and (max-width: 599px) {
+    .aside {
+        text-align: center;
+    }
+    .main {
+        font-size: 26px;
+    }
+    body {
+        margin-top: 100px;
+    }
+}
+
+@media all and (max-width: 399px) { 
+    body {
+        margin-top: 150px;
+    }
+}
+
+@media all and (min-width: 300px) {
+  .aside { flex: 1 auto;}
+}
+
+@media all and (min-width: 601px) {
+  .main    { flex: 3 0px; }
+  .aside-1 { 
+      order: 1; 
+      width: 33%;
+      } 
+  .main    { 
+      order: 2; 
+      }
+  .aside-2 { 
+      order: 3; 
+      width: 33%;
+  }
+}
+
+body {
+  padding: 2em; 
+}

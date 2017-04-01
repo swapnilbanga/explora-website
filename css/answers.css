@@ -1,0 +1,9 @@
+a:hover i.fa {
+    cursor: pointer; 
+    cursor: hand;
+}
+
+#submitAnswer {
+    float: right;
+    margin-right: 15px;
+}
