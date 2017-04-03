@@ -10,7 +10,6 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <link href="css/answers.css" rel="stylesheet">
-        <link href="dependencies/token_input/styles/token-input.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>
@@ -60,7 +59,7 @@
                 <hr>
             </div>
             <div class="container-fluid" id="allAnswers"></div>
-             <ul id="answerList" class="pagination"></ul>  
+             <ul id="answerList" class="pagination justify-content-center"></ul>  
         </main>
 
         <!--Post answer form-->
@@ -155,6 +154,8 @@
                     event.preventDefault();
                 });
                 $('body').on('click', '#answerList li a', function() {
+                    $(this).parent().addClass('active');
+                    $(this).parent().siblings().removeClass('active');
                     var page = $(this).html();
                     var url = "http://acadprojects.com/py/explora/answer?question_id=" + question_id + "&page=" +page;
                     fetchAnswers(url);

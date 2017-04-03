@@ -128,12 +128,6 @@ body {
     float: right;
 }
 
-#recentList, #trendingList, #popularList  {
-    width: 36%;
-    margin-left: 32%;
-    text-align: center;
-}
-
 @media all and (max-width: 599px) {
     .aside {
         text-align: center;
