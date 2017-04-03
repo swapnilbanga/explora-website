@@ -160,9 +160,9 @@
                                         '<div class="col-xs-4 col-md-2 askerInfo">' +
                                             '<img src="' + object.data[i].image_url + '" alt="user image" class="userImage">' +
                                             '<br>' +
-                                            '<label>' + object.data[i].created_on + '</label>' +
+                                            '<label id="userDate">' + object.data[i].created_on + '</label>' +
                                             '<br>' +
-                                            '<label>' + object.data[i].posted_by_name + '</label>' +
+                                            '<label id="userName">' + object.data[i].posted_by_name + '</label>' +
                                         '</div>' +
                                         '<div class="col-xs-8 col-md-10 questionContent">'+
                                             '<p>' +
@@ -188,7 +188,6 @@
             $(document).ready(function() {
                 subject_id = localStorage.getItem("subject_id");
                 subject_name = localStorage.getItem("subject_name");
-
                 //Get questions by subject id
                 questionsBySubject(subject_id, subject_name);
 
