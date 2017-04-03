@@ -5,9 +5,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <meta name="author" content="Swapnil Banga">
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <link href="dependencies/token_input/styles/token-input.css" rel="stylesheet" type="text/css">
@@ -17,20 +16,24 @@
             <nav class="navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="wrapper">
-                        <article class="main">
-                            <p>Explora</p>  
+                        <article class="main" id="brandName">
+                            <a href="index.html"><p>Explora</p></a>
                         </article>
-                        <aside class="aside aside-1"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></aside>
+                        <aside class="aside aside-1">
+                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FExplora-1321801001238773%2F&width=105&layout=button_count&action=like&size=small&show_faces=false&share=true&height=46&appId" 
+                                     width="105" height="25" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true">
+                            </iframe>
+                        </aside>
                         <aside class="aside aside-2">
                                 <input type="text" id="searchInput" placeholder="Search">
-                                <button type="submit" id="searchButton" class="btn">Search</button>
+                                <button type="submit" id="searchLocal" class="btn">Search</button>
                         </aside>
                     </div>
                 </div>
             </nav>
         </header>
         <div class="container-fluid">
-            <h2 id="searchResult">Search results for tag</h2>
+            <h2 id="searchResult"></h2>
             <br />
             <div class="row" style="width: 90%; margin-left: 5%">
                 <button id"ask" type="button" class="btn" data-toggle="modal" data-target="#questionModal">Ask Question</button>
@@ -51,25 +54,7 @@
             <hr>
         </div>
         
-        <div class="container-fluid" id="subjectQuestions">
-            <div class="row">
-                <div class="col-xs-2 askerInfo">
-                    <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
-                    <br>
-                    <label>Date</label>
-                    <br>
-                    <label>Name</label>
-                </div>
-                <div class="col-xs-10 questionContent">
-                    <p>
-                        Questions by subject. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
-                        Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
-                        per inceptos himenaeos.
-                    </p>
-                </div>
-            </div>
-            <hr>
-        </div>
+        <div class="container-fluid" id="subjectQuestions"></div>
         <!--Question Form-->
         <!-- Modal -->
         <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -130,132 +115,79 @@
             </div>
         </div>
         <!--End Question Form-->
-
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="js/main.js" type="text/javascript"></script>        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script>
-            function searchBySubject(query) {
-                var subject_id = 0;
+            function searchBySubjectLocal(query) {
+                var subject_id;
+                var subject_name;
                 $('#subject').children().each(function() {
-                    if($(this).html() === query) {
+                    if($(this).html().toUpperCase() === query.toUpperCase()) {
                         subject_id = $(this).val();
-                        subject_name = $(this).html();
-                        localStorage.setItem("subject_id", subject_id);
-                        localStorage.setItem("subject_name", subject_name);
-                        questionsBySubject(subject_id, subject_name);
-                    }
-                    else {
-                        $('#subjectQuestions').html("Not found");
+                        subject_name = query;
                     }   
                 });
+                questionsBySubject(subject_id, subject_name);
             }
 
             function questionsBySubject(subject_id, subject_name) {
-                $('#searchResult').html('Search results for tag ' + '"' + subject_name + '"');
-                dataObject = {
-                    "page": 0,
-                    "filters":[
-                        {
-                        "name": "subject_id",
-                        "value": subject_id
-                        }
-                    ]
-                }
-                $.ajax({
-                    url: "http://acadprojects.com/py/explora/filter",
-                    method: 'POST',
-                    contentType: 'application/json; charset=UTF-8',
-                    data: JSON.stringify(dataObject),
-                    success: function(object) {
-                        $('#subjectQuestions').html("");
-                        for(var i in object.data)
+                $('#subjectQuestions').html("");
+                localStorage.clear();
+                if(! subject_name)
+                    $('#searchResult').html("No results matching your query");
+                else {
+                    $('#searchResult').html('Search results for ' + '"' + subject_name + '"');
+                    dataObject = {
+                        "page": 0,
+                        "filters":[
                             {
-                            $('#subjectQuestions').append(
-                                '<div class="row">' +
-                                    '<div class="col-xs-2 askerInfo">' +
-                                        '<img src="' + object.data[i].image_url + '" alt="user image" style="height: 100px; width: 100px">' +
-                                        '<br>' +
-                                        '<label>' + object.data[i].created_on + '</label>' +
-                                        '<br>' +
-                                        '<label>' + object.data[i].posted_by_name + '</label>' +
-                                    '</div>' +
-                                    '<div class="col-xs-10 questionContent">'+
-                                        '<p>' +
-                                            object.data[i].question +
-                                        '</p>' +
-                                        '<a href="answers.html"><button class="btn  viewAnswers"' + 'data-question_id=' + object.data[i].id + '>Answers</button></a>' +
-                                    '</div>' +
-                                '</div>' + 
-                                '<hr>'
-                            );
+                            "name": "subject_id",
+                            "value": subject_id
+                            }
+                        ]
+                    }
+                    $.ajax({
+                        url: "http://acadprojects.com/py/explora/filter",
+                        method: 'POST',
+                        contentType: 'application/json; charset=UTF-8',
+                        data: JSON.stringify(dataObject),
+                        success: function(object) {
+                            for(var i in object.data)
+                                {
+                                $('#subjectQuestions').append(
+                                    '<div class="row">' +
+                                        '<div class="col-xs-4 col-md-2 askerInfo">' +
+                                            '<img src="' + object.data[i].image_url + '" alt="user image" class="userImage">' +
+                                            '<br>' +
+                                            '<label>' + object.data[i].created_on + '</label>' +
+                                            '<br>' +
+                                            '<label>' + object.data[i].posted_by_name + '</label>' +
+                                        '</div>' +
+                                        '<div class="col-xs-8 col-md-10 questionContent">'+
+                                            '<p>' +
+                                                object.data[i].question +
+                                            '</p>' +
+                                            '<a href="answers.html"><button class="btn  viewAnswers"' + 'data-question_id=' + object.data[i].id + '>Answers</button></a>' +
+                                        '</div>' +
+                                    '</div>' + 
+                                    '<hr>'
+                                );
+                            }
                         }
-                    }
-                })
-                .done(function() {
-                    console.log("Search successful")
-                })
-                .fail(function(){
-                    console.log("Search failed");
-                });
-            }
-
-            function getSubjectId() {
-                $.ajax({
-                    url: "http://acadprojects.com/py/explora/subject",
-                    method: 'GET',
-                    success: function(object)
-                    {   for(i in object.data)
-                        $('#subject').prepend (
-                            "<option value=" + object.data[i].id + ">" + object.data[i].name + "</option>"
-                        );
-                    }
-                })
-                .done(function() {
-                    console.log("Succesfully loaded subjects");
-                })
-                .fail(function() {
-                    console.log("Failed to load subjects");
-                })
-            }
-
-            $('#submitQuestion').on('click', function() {
-                var proceed = true;
-                $('#questionForm input, #questionForm textarea').each(function() {
-                      $(this).css('border-color',''); 
-                      if(! $.trim($(this).val())) { 
-                          $(this).css('border-color','red'); 
-                          proceed = false;
-                    }
-                });
-                var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
-                if(! email_reg.test($.trim($('#email').val()))) {
-                    $('#email').css('border-color','red');
-                    $('#successMessage').html("<label>Invalid email</label");
-                    proceed = false;           
-                } 
-                else
-                {
-                    $('#successMessage').html("<label></label");
+                    })
+                    .done(function() {
+                        console.log("Search successful")
+                    })
+                    .fail(function(){
+                        console.log("Search failed");
+                    });
                 }
-                
-                if(proceed) {
-                   var data = {
-                       posted_by_email: $('#email').val(),
-                       posted_by_name: $('#name').val(),
-                       question: $('#question').val(),
-                       subject_id: 1,
-                       semester: $('#semesterForm').val(),
-                       tags: $('#tagInput').val().split(" ")
-                   }
-                   addQuestion(data);
-                }
-                event.preventDefault();
-            });
+            }
 
             $(document).ready(function() {
                 subject_id = localStorage.getItem("subject_id");
                 subject_name = localStorage.getItem("subject_name");
-
-                //Get subjects
-                getSubjectId();
 
                 //Get questions by subject id
                 questionsBySubject(subject_id, subject_name);
@@ -264,13 +196,14 @@
                     localStorage.setItem("question_id", $(this).attr("data-question_id"));
                 });
 
-                 //Get search text
-                $('#searchButton').on('click', function() {
+                $('#searchLocal').on('click', function(){
                     var query = $('#searchInput').val();
-                    if(query)
-                        searchBySubject(query);
+                    if (query)
+                        searchBySubjectLocal(query);
                     else
                         console.log("Empty value");
-                });
+                })
             });
         </script>
+    </body>
+</html>

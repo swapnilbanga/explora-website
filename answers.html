@@ -5,9 +5,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <meta name="author" content="Swapnil Banga">
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <link href="css/answers.css" rel="stylesheet">
@@ -18,10 +17,14 @@
             <nav class="navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="wrapper">
-                        <article class="main">
-                            <p>Explora</p>  
+                        <article class="main" id="brandName">
+                            <a href="index.html"><p>Explora</p></a>
                         </article>
-                        <aside class="aside aside-1"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></aside>
+                        <aside class="aside aside-1"> 
+                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FExplora-1321801001238773%2F&width=105&layout=button_count&action=like&size=small&show_faces=false&share=true&height=46&appId" 
+                                     width="105" height="25" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true">
+                            </iframe>
+                        </aside>
                         <aside class="aside aside-2">
                             <input type="text" id="searchInput" placeholder="Search">
                             <button type="submit" id="searchButton" class="btn">Search</button>
@@ -31,43 +34,32 @@
             </nav>
         </header>
         <main>
+            <select name="subject" class="form-control" id="subject" style="display: none">
+                <option value="4">C Programming</option>
+                <option value="5">Data Structures</option>
+                <option value="6">Software Testing</option>
+                <option value="7">Mathematics</option>
+                <option value="8">Algorithms</option>
+            </select>
             <div class="container-fluid" id="mainQuestion">
                 <div class="row">
-                    <div class="col-xs-2 askerInfo">
-                        <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
+                    <div class="col-xs-4 col-md-2 askerInfo">
+                        <img src="sample.png" alt="user image" class="userImage">
                         <br>
                         <label>Date</label>
                         <br>
                         <label>Name</label>
                     </div>
-                    <div class="col-xs-10 questionContent">
+                    <div class="col-xs-8 col-md-10 questionContent">
                         <p>
-                            Our question. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
-                            Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
-                            per inceptos himenaeos.
+                            Our question. Nunc eu nunc eget enim bibendum ultricies ac vitae mi?
                         </p>
                         <button class="btn" data-toggle="modal" data-target="#answerModal">Post answer</button>
                     </div>
                 </div>
                 <hr>
             </div>
-             <div class="container-fluid" id="allAnswers">
-                <div class="row">
-                    <div class="col-xs-10 answerContent" style="float: right">
-                        <p>
-                            Answer here. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
-                            Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
-                            per inceptos himenaeos.
-                        </p>
-                        <br>
-                        <span style="float: left"><a class="likeButton"><i class="fa fa-thumbs-o-up fa-lg"></i></a>&nbsp<label>34</label></span>
-                        <span style="float: right"><label>Posted by: Name</label>
-                        <br>
-                        <span style="float: right"><label>Date</label>
-                    </div>
-                </div>
-                <hr>
-            </div>
+            <div class="container-fluid" id="allAnswers"></div>
         </main>
 
         <!--Post answer form-->
@@ -103,6 +95,11 @@
             </div>
         </div>
         <!--End post answer form-->
+
+        <!--JavaScript-->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script>
             var question_id = localStorage.getItem("question_id");
             //Fetch answers
@@ -130,7 +127,7 @@
                                 {
                                 $('#allAnswers').append(
                                     '<div class="row">' +
-                                        '<div class="col-xs-10 answerContent" style="float: right" data-answerid=' + object.data[i].id + '>'+
+                                        '<div class="col-xs-12 col-md-10 answerContent" style="float: right" data-answerid=' + object.data[i].id + '>'+
                                             '<p>' +
                                                 object.data[i].answer +
                                             '</p>' +
