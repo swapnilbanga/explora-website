@@ -5,22 +5,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
         <meta name="author" content="Swapnil Banga">
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="css/main.css" rel="stylesheet">
         <link href="dependencies/token_input/styles/token-input.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <div id="fb-root"></div>
         <header>
             <nav class="navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="wrapper">
-                        <article class="main">
-                            <p>Explora</p>  
+                        <article class="main" id="brandName">
+                            <a href="#"><p>Explora</p></a>  
                         </article>
-                        <aside class="aside aside-1"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></aside>
+                        <aside class="aside aside-1">
+                            <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FExplora-1321801001238773%2F&width=105&layout=button_count&action=like&size=small&show_faces=false&share=true&height=46&appId" 
+                                     width="105" height="25" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true">
+                            </iframe>
+                        </aside>
                         <aside class="aside aside-2">
                                 <input type="text" id="searchInput" placeholder="Search">
                                 <button type="submit" id="searchButton" class="btn">Search</button>
@@ -63,67 +67,17 @@
                 
                 <div class="tab-content">
                     <div class="tab-pane fade" id="recent">
-                        <div class="container-fluid" id="recentQuestions">
-                            <div class="row">
-                                <div class="col-xs-2 askerInfo">
-                                    <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
-                                    <br>
-                                    <label>Date</label>
-                                    <br>
-                                    <label>Name</label>
-                                </div>
-                                <div class="col-xs-10 questionContent">
-                                    <p>
-                                        Recent content. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
-                                        Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
-                                        per inceptos himenaeos.
-                                    </p>
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
+                        <div class="container-fluid" id="recentQuestions"></div>
+                        <ul id="recentList" class="pagination">
+                        </ul>
                     </div>
                 <div class="tab-pane fade in active" id="trending">
-                    <div class="container-fluid" id="trendingQuestions">
-                        <div class="row">
-                            <div class="col-xs-2 askerInfo">
-                                <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
-                                <br>
-                                <label>Date</label>
-                                <br>
-                                <label>Name</label>
-                            </div>
-                            <div class="col-xs-10 questionContent">
-                                <p>
-                                    Trending content. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
-                                    Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
-                                    per inceptos himenaeos.
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
+                    <div class="container-fluid" id="trendingQuestions"></div>
+                    <ul id="trendingList" class="pagination"></ul>     
                 </div>
                 <div class="tab-pane fade" id="popular">
-                    <div class="container-fluid" id="popularQuestions">
-                        <div class="row">
-                            <div class="col-xs-2 askerInfo">
-                                <img src="sample.png" alt="user image" style="height: 100px; width: 100px">
-                                <br>
-                                <label>Date</label>
-                                <br>
-                                <label>Name</label>
-                            </div>
-                            <div class="col-xs-10 questionContent">
-                                <p>
-                                    Popular content. Nunc eu nunc eget enim bibendum ultricies ac vitae mi. Sed pellentesque ut mi dictum luctus. In et cursus massa. Aenean nec volutpat felis. 
-                                    Aenean pellentesque bibendum tempor. Suspendisse tristique gravida libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
-                                    per inceptos himenaeos.
-                                </p>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
+                    <div class="container-fluid" id="popularQuestions"></div>
+                    <ul id="popularList" class="pagination"></ul>                    
                 </div>
             </div>
         </div>
@@ -189,10 +143,39 @@
         </div>
         <!--End Question Form-->
 
+        <!--JavaScript-->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/main.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="dependencies/token_input/src/jquery.tokeninput.js"></script>
         <script type="text/javascript">
+
+            //Pagination
+            function createPages(url, ulName) {
+                $(ulName).html("");
+                $.ajax({
+                    url: url, 
+                    method: 'GET',
+                    data: {
+                        format: 'json'
+                    },
+                    success: function(object) {
+                        for(var i = 0; i < parseInt(object.total_pages); i++) {
+                            $(ulName).append('<li><a href="#">' + i + '</a></li>');
+                        }
+                    }
+                })
+                .done(function(){
+                    console.log("Created a list");
+                })
+                .fail(function() {
+                    console.log("Could not create a list");
+                })
+            }
+
             //Load questions
             function fetchQuestions(url, containerDiv) {
+                $(containerDiv).empty();
                 $.ajax({
                     url: url, 
                     method: 'GET',
@@ -201,18 +184,18 @@
                     },
                     success: function(object) {
                         var results = object.data.length;
-                        for(var i = 0; i < results; i++)
+                        for (var i = 0; i < results; i++)
                             {
-                            $(containerDiv).append(
+                            $(containerDiv).prepend(
                                 '<div class="row">' +
-                                    '<div class="col-xs-2 askerInfo">' +
-                                        '<img src="' + object.data[i].image_url + '" alt="user image" style="height: 100px; width: 100px">' +
+                                    '<div class="col-xs-4 col-md-2 askerInfo">' +
+                                        '<img src="' + object.data[i].image_url + '" alt="image" class="userImage">' +
                                         '<br>' +
                                         '<label>' + object.data[i].created_on + '</label>' +
                                         '<br>' +
                                         '<label>' + object.data[i].posted_by_name + '</label>' +
                                     '</div>' +
-                                    '<div class="col-xs-10 questionContent">'+
+                                    '<div class="col-xs-8 col-md-10 questionContent">'+
                                         '<p>' +
                                             object.data[i].question +
                                         '</p>' +
@@ -233,91 +216,33 @@
             }
             //End loading questions
 
-            //Post a new question
-            function addQuestion(data) {
-            $.ajax({
-                    url: "http://acadprojects.com/py/explora/question",
-                    method: 'POST',
-                    contentType: 'application/json; charset=UTF-8',
-                    data: JSON.stringify(data),
-                    success: function(object) {
-                        console.log(object);
-                    }
-                })
-                .done(function() {
-                    console.log("Successfully posted your question");
-                    $('#questionForm').each(function() {
-                         this.reset();
-                     });
-                     $('#successMessage').append("<label>Succesfully posted</label");
-                })
-                .fail(function() {
-                    console.log("Nope");
-                    $('#successMessage').append("<label>Could not post</label");
-                });
-            }
-
-            function getSubjectId() {
-                $.ajax({
-                    url: "http://acadprojects.com/py/explora/subject",
-                    method: 'GET',
-                    success: function(object)
-                    {   for(i in object.data)
-                        $('#subject').prepend (
-                            "<option value=" + object.data[i].id + ">" + object.data[i].name + "</option>"
-                        );
-                    }
-                })
-                .done(function() {
-                    console.log("Succesfully loaded subjects");
-                })
-                .fail(function() {
-                    console.log("Failed to load subjects");
-                })
-            }
-
-            //open search page
-            function searchBySubject(query) {
-                var subject_id = 0;
-                $('#subject').children().each(function() {
-                    if($(this).html() === query) {
-                        subject_id = $(this).val();
-                        localStorage.setItem("subject_id", subject_id);
-                        localStorage.setItem("subject_name", query);
-                        window.location.href = "search.html";
-                    }   
-                });
-                console.log("No matches");
-            }
-
             $(document).ready(function () {
-                //Load trending questions when page loads.
-                var url = "http://acadprojects.com/py/explora/question?page=0&type=trending";
-                var containerDiv = "#trendingQuestions";
-                fetchQuestions(url, containerDiv);
-
-                //Get subjects
-                getSubjectId();
 
                 //Call recent questions
-                $('#recentTab').on('click', function() {
+                $('#recentTab a').on('click', function() {
                     var url = "http://acadprojects.com/py/explora/question?page=0&type=recent";
                     var containerDiv = "#recentQuestions";
+                    var ulName = "#recentList";
                     fetchQuestions(url, containerDiv);
+                    createPages(url, ulName);
                 });
 
                 //Call popular questions
-                $('#popularTab').on('click', function() {
+                $('#popularTab a').on('click', function() {
                     var url = "http://acadprojects.com/py/explora/question?page=0&type=popular";
                     var containerDiv = "#popularQuestions";
+                    var ulName = "#popularList";
                     fetchQuestions(url, containerDiv);
+                    createPages(url, ulName);
                 });
 
                 //Call trending questions
-                $('#trendingTab').on('click', function() {
+                $('#trendingTab a').on('click', function() {
                     var url = "http://acadprojects.com/py/explora/question?page=0&type=trending";
                     var containerDiv = "#trendingQuestions";
+                    var ulName = "#trendingList";
                     fetchQuestions(url, containerDiv);
+                    createPages(url, ulName);
                 });
 
                 //Save question id for access
@@ -325,55 +250,22 @@
                     localStorage.setItem("question_id", $(this).attr("data-question_id"));
                 });
 
-                //Submit a question
-                $('#submitQuestion').on('click', function() {
-                    var proceed = true;
-                    $('#questionForm input, #questionForm textarea').each(function() {
-                          $(this).css('border-color',''); 
-                          if(! $.trim($(this).val())) { 
-                              $(this).css('border-color','red'); 
-                              proceed = false;
-                        }
-                    });
-                    var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
-                    if(! email_reg.test($.trim($('#email').val()))) {
-                        $('#email').css('border-color','red');
-                        $('#successMessage').html("<label>Invalid email</label");
-                        proceed = false;           
-                    } 
-                    else
-                    {
-                        $('#successMessage').html("<label></label");
-                    }
-                    
-                    if(proceed) {
-                       var data = {
-                           posted_by_email: $('#email').val(),
-                           posted_by_name: $('#name').val(),
-                           question: $('#question').val(),
-                           subject_id: 1,
-                           semester: $('#semesterForm').val(),
-                           tags: $('#tagInput').val().split(" ")
-                       }
-                       addQuestion(data);
-                    }
-                    event.preventDefault();
+                //Change user tab colors
+                $('#users').children().find('a').on('click', function() {
+                    $(this).parent().addClass("activeTab");
+                    $(this).parent().siblings().removeClass("activeTab");
                 });
 
-                //Get search text
-                $('#searchButton').on('click', function() {
-                    var query = $('#searchInput').val();
-                    if(query)
-                        searchBySubject(query);
-                    else
-                        console.log("Empty value");
+                $('body').on('click', ".pagination li a", function(){
+                    var page = $(this).html();
+                    var containerDivParent = $(this).parent().parent().parent();
+                    var url = "http://acadprojects.com/py/explora/question?page=" + page + "&type=" + containerDivParent.attr('id');
+                    var containerDiv = containerDivParent.find('div').attr('id');
+                    fetchQuestions(url, '#' + containerDiv);
                 });
-            });
 
-            //Change user tab colors
-            $('#users').children().on('click', function() {
-                $(this).addClass("activeTab");
-                $(this).siblings().removeClass("activeTab");
+                //Call trending questions when page loads
+                $('#trendingTab a').click();
             });
         </script>
     </body>

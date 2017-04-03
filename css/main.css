@@ -1,6 +1,7 @@
 
 body {
     margin-top: 70px;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .navbar-default {
@@ -66,6 +67,25 @@ body {
     text-decoration: none;
 }
 
+.questionToggle {
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.tab-content {
+    margin-top: 20px;
+}
+
+.askerInfo {
+    text-align: center;
+}
+
+.userImage {
+    height: 60px;
+    width: 60px;
+    border-radius: 30px;
+}
+
 #searchInput {
     width: 50%;
     font-size: 14px;
@@ -78,23 +98,17 @@ body {
     border-radius: 15px;
 }
 
+#brandName a {
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    text-decoration-line: none;
+    text-decoration: none;
+}
+
 #users {
     text-align: center;
     margin-bottom: 15px;
 
-}
-
-.questionToggle {
-    border: 2px solid black;
-    padding: 5px;
-}
-
-.tab-content {
-    margin-top: 20px;
-}
-
-.askerInfo {
-    text-align: center;
 }
 
 #ask {
@@ -114,6 +128,12 @@ body {
     float: right;
 }
 
+#recentList, #trendingList, #popularList  {
+    width: 36%;
+    margin-left: 32%;
+    text-align: center;
+}
+
 @media all and (max-width: 599px) {
     .aside {
         text-align: center;
@@ -126,7 +146,7 @@ body {
     }
 }
 
-@media all and (max-width: 399px) { 
+@media all and (max-width: 450px) { 
     body {
         margin-top: 150px;
     }
@@ -141,6 +161,7 @@ body {
   .aside-1 { 
       order: 1; 
       width: 33%;
+      padding-top: 25px;
       } 
   .main    { 
       order: 2; 
