@@ -44,11 +44,11 @@
             <div class="container-fluid" id="mainQuestion">
                 <div class="row">
                     <div class="col-xs-4 col-md-2 askerInfo">
-                        <img src="sample.png" alt="user image" class="userImage">
+                        <img alt="user image" class="userImage">
                         <br>
-                        <label>Date</label>
+                        <label id="userDate">Date</label>
                         <br>
-                        <label>Name</label>
+                        <label id="userName">Name</label>
                     </div>
                     <div class="col-xs-8 col-md-10 questionContent">
                         <p>
@@ -60,6 +60,7 @@
                 <hr>
             </div>
             <div class="container-fluid" id="allAnswers"></div>
+             <ul id="answerList" class="pagination"></ul>  
         </main>
 
         <!--Post answer form-->
@@ -99,156 +100,66 @@
         <!--JavaScript-->
         <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="js/main.js"></script>
+        <script type="text/javascript" src="js/answers.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script>
-            var question_id = localStorage.getItem("question_id");
-            //Fetch answers
-            function fetchAnswers() {
-                var ourURL = "http://acadprojects.com/py/explora/answer?question_id=" + question_id + "&page=0";
-                $.ajax({
-                    url: ourURL,
-                    method: 'GET',
-                    data: {
-                        format: 'json'
-                    },
-                    success: function(object) {
-                        var results = object.data.length;
-                        if(results === 0) {
-                            $('#allAnswers').append(
-                                '<div class="row">' +
-                                    '<div class="col-xs-10 answerContent" style="float: right">'+
-                                        '<p>No answers yet</p>' +
-                                    '</div>' +
-                                '</div>' 
-                            );
-                        }
-                        else {
-                            for(var i = 0; i < results; i++)
-                                {
-                                $('#allAnswers').append(
-                                    '<div class="row">' +
-                                        '<div class="col-xs-12 col-md-10 answerContent" style="float: right" data-answerid=' + object.data[i].id + '>'+
-                                            '<p>' +
-                                                object.data[i].answer +
-                                            '</p>' +
-                                            '<br>' +
-                                            '<span style="float: left"><a class="likeButton"><i class="fa fa-thumbs-o-up fa-lg"></i></a>&nbsp<label class="likeCount">' + object.data[i].like_count  + '</label></span>' + 
-                                            '<span style="float: right"><label>Posted by: ' + object.data[i].answer_by_name + '</label>' +
-                                            '<br>' +
-                                            '<span style="float: right"><label> Date: ' + object.data[i].created_on + " "+ '</label>' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<hr>'
-                                );
-                            }
-                        }
-                    }
-                })
-                .done(function() {
-                    console.log("done");
-                })
-                .fail(function() {
-                    console.log("failure");
+            $(document).ready(function() {
+                //Fetch all answers when page loads
+                fetchAnswers('http://acadprojects.com/py/explora/answer?question_id='+ question_id + '&page=0');
+                //Create pages
+                createPages();
+                //Read question
+                var question_statement = localStorage.getItem("question_statement");
+                var question_posted = localStorage.getItem("question_posted");
+                var question_imageurl = localStorage.getItem("question_imageurl");
+                var user_name = localStorage.getItem("user_name");
+                $('#mainQuestion').find('img').attr('src', question_imageurl);
+                $('#mainQuestion').find('p').html(question_statement);
+                $('#mainQuestion').find('#userName').html(user_name);
+                $('#mainQuestion').find('#userDate').html(question_posted);
+                
+                //Update likes
+                $('body').on('click', '.likeButton', function() {
+                    var answerID = $(this).parent().parent();
+                    updateLikes(answerID);
                 });
-            }
-            //End fetching answers
-
-            //Post new answer
-            function addAnswer(data) {
-                $.ajax({
-                    url: "http://acadprojects.com/py/explora/answer",
-                    method: 'POST',
-                    contentType: 'application/json; charset=UTF-8',
-                    data: JSON.stringify(data),
-                    success: function(object) {
-                        console.log(object);
-                    }
-                })
-                .done(function() {
-                    console.log("Successfully posted your answer");
-                    $('#answerForm').each(function() {
-                         this.reset();
-                     });
-                     $('#successMessage').append("<label>Succesfully posted</label");
-                     location.reload();
-                })
-                .fail(function() {
-                    console.log("Nope");
-                    $('#successMessage').append("<label>Could not post</label");
-                });
-            }
-
-            //Update likes
-            function updateLikes(answerID) {
-                var answerIDval = $(answerID).attr("data-answerid");
-                $.ajax ({
-                    url: 'http://acadprojects.com/py/explora/answer',
-                    method: 'PUT', 
-                    data: {
-                        format: JSON,
-                        "answer_id": answerIDval
-                    },
-                    success: function(object) {
-                        if(object.result === true)
-                        {
-                            var likeCount = parseInt((answerID).find('.likeCount').html());
-                            likeCount += 1;
-                            $(answerID).find('.likeCount').html(likeCount);
+                //Submit an answer
+                $('#submitAnswer').on('click', function() {
+                    var proceed = true;
+                    $('#answerForm input, #answerForm textarea').each(function() {
+                        $(this).css('border-color',''); 
+                        if(! $.trim($(this).val())) { 
+                            $(this).css('border-color','red'); 
+                            proceed = false;
                         }
-                    }
-                })
-                .done(function() {
-                    console.log("Updated likes");
-                })
-                .fail(function() {
-                    console.log("Could not update likes");
-                });
-                };
-                //End update likes
-
-                $(document).ready(function() {
-                    //Fetch all answers when page loads
-                    fetchAnswers();
-
-                    //Update likes
-                    $('body').on('click', '.likeButton', function() {
-                        var answerID = $(this).parent().parent();
-                        updateLikes(answerID);
                     });
-
-                    //Submit an answer
-                    $('#submitAnswer').on('click', function() {
-                        var proceed = true;
-                        $('#answerForm input, #answerForm textarea').each(function() {
-                            $(this).css('border-color',''); 
-                            if(! $.trim($(this).val())) { 
-                                $(this).css('border-color','red'); 
-                                proceed = false;
-                            }
-                        });
-                        var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
-                        if(! email_reg.test($.trim($('#email').val()))) {
-                            $('#email').css('border-color','red');
-                            $('#successMessage').html("<label>Invalid email</label");
-                            proceed = false;           
-                        } 
-                        else
-                        {
-                            $('#successMessage').html("<label></label");
-                        }
-
-                        if(proceed) {
-                           var data = {
-                               answer: $('#answer').val(),
-                               answer_by_email: $('#email').val(),
-                               answer_by_name: $('#name').val(),
-                               quora_question_id: question_id
-                           }
-                           addAnswer(data);
-                        }
-                        event.preventDefault();
-                    });
+                    var email_reg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/; 
+                    if(! email_reg.test($.trim($('#email').val()))) {
+                        $('#email').css('border-color','red');
+                        $('#successMessage').html("<label>Invalid email</label");
+                        proceed = false;           
+                    } 
+                    else
+                    {
+                        $('#successMessage').html("<label></label");
+                    }
+                    if(proceed) {
+                       var data = {
+                           answer: $('#answer').val(),
+                           answer_by_email: $('#email').val(),
+                           answer_by_name: $('#name').val(),
+                           quora_question_id: question_id
+                       }
+                       addAnswer(data);
+                    }
+                    event.preventDefault();
                 });
+                $('body').on('click', '#answerList li a', function() {
+                    var page = $(this).html();
+                    var url = "http://acadprojects.com/py/explora/answer?question_id=" + question_id + "&page=" +page;
+                    fetchAnswers(url);
+                });
+            });
         </script>
     </body>
 </html>
