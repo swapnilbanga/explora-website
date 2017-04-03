@@ -105,3 +105,17 @@ $('#submitQuestion').on('click', function() {
     event.preventDefault();
 });
 
+//Read question data
+
+$('body').on('click', ".viewAnswers", function() {
+    var question_id = $(this).attr("data-question_id");
+    var question_statement = $(this).parent().parent().find('p').html()
+    var question_posted =  $(this).parent().parent().siblings().find('#userDate').html();
+    var question_imageurl = $(this).parent().parent().siblings().find('img').attr('src');
+    var user_name = $(this).parent().parent().siblings().find('#userName').html();
+    localStorage.setItem("question_id", question_id);
+    localStorage.setItem("question_statement", question_statement);
+    localStorage.setItem("question_posted", question_posted);
+    localStorage.setItem("question_imageurl", question_imageurl);
+    localStorage.setItem("user_name", user_name);
+});

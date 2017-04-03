@@ -7,3 +7,10 @@ a:hover i.fa {
     float: right;
     margin-right: 15px;
 }
+
+#answerList {
+    width: 36%;
+    margin-left: 32%;
+    text-align: center;
+}
+
